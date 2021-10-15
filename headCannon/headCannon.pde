@@ -1,3 +1,6 @@
+
+
+
 void setup()
 {
   size(1000, 1000);
@@ -5,6 +8,7 @@ void setup()
   onInstructions = false;
   onLeaderboard = false;
   noCursor();
+  score = 0;
 }
 
 void draw()
@@ -22,14 +26,29 @@ void draw()
     emoji();
     clock();
     score();
-    
+    onTargetCheck();
+    if (tarX == 0 && tarY == 0)
+    {
+      tarloose(emoX, emoY);
+      enemyUp = false;
+      allyUp = true;
+    } else if (emoX == 0 && emoY == 0)
+    {
+      target(tarX, tarY);
+      enemyUp = true;
+      allyUp = false;
+    }
+    if (targetUp == false)
+    {
+      newTarget();
+    }
+
     //when time runs out
     if (round((millis()-startTime)/1000) >= gameTime )
     {
       gameOver = true;
       //work out whether the final score is in the top 5 and if so ask for nickname
       finalScore = score;
-      score = 0;
       //game over message
       text("-click anywhere-", width/2, 2 * height/3);
       textAlign(CENTER, CENTER);
@@ -64,11 +83,61 @@ void mousePressed()
   //mouse pressing in game
   if (inGame == true)
   {
-    if (gameOver == true)
+    if (gameOver == true)//and topscore == false;
     {
       if (mouseButton == LEFT)
       {
         inGame = false;
+        score = 0;
+      }
+    } else
+    {
+      //target shooting and ally saving
+      if ( mouseButton == LEFT)
+      {
+        bangSE();
+        if (allyUp == true && onTarget == true)
+        {
+          //whatever happens when you shoot an ally
+          score = score - 5 * pointScale;
+          allyDeathSE();
+        } else if (enemyUp == true && onTarget == true)
+        {
+          hitTargetSE();
+          bandCheck();
+          //whatever happens when you shoot a target and hit
+          if (band == 1)
+          {
+            score = score + 10 * pointScale;
+          } 
+          else if (band == 2)
+          {
+            score = score + 5 * pointScale;
+          } 
+          else if (band == 3)
+          {
+            score = score + 3 * pointScale;
+          } 
+          else if (band == 4)
+          {
+            score = score + pointScale;
+          }
+        } else
+        {
+          //whatever happens when you miss
+          score = score - pointScale;
+        }
+        targetUp = false;
+      } else if (mouseButton == RIGHT)
+      {
+        if (allyUp == true && onTarget == true)
+        {
+          //whatever happens when you save an ally
+          score = score + 5 * pointScale;
+          allySavedSE();
+
+          targetUp = false;
+        }
       }
     }
   }

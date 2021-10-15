@@ -1,5 +1,5 @@
-Joseph,740
-kokobeen,680
-joe,630
-koko,620
-honess,540
+Joseph,810
+kokobeen,730
+joe,720
+koko,660
+honess,620

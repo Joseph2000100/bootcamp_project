@@ -2,8 +2,6 @@ void leaderboard()
 {
   //load leaderboard text file
   int i = 0;
-  //nicknames = new String[5];
-  //scores = new int[5];
   ArrayList<String> nicknames = new ArrayList<String>();
   IntList scores = new IntList();
   leaders = loadStrings("leaderboard.txt");
@@ -15,7 +13,6 @@ void leaderboard()
     scores.append(int(nameScore[1]));
     i++;
   }
-
 
 
   //title
@@ -48,3 +45,37 @@ void leaderboard()
   text(nicknameText, width/5, height/5, 9 * width/16, 2 * height/3);
   text(scoreText, 5 * width/8, height/5, 9 * width/10, 2 * height/3);
 }
+
+
+
+//calculations and communications with leaderboard
+//void orderLeaderboard ()
+//{
+//  //load leaderboard text file
+//  int i = 0;
+//  ArrayList<String> nicknames = new ArrayList<String>();
+//  ArrayList<String> nicknameOrder = new ArrayList<String>();
+//  IntList scores = new IntList();
+//  IntList scoresTemp = new IntList();
+//  leaders = loadStrings("leaderboard.txt");
+//  //puts names and scores in individual arrays
+//  for (String leader : leaders)
+//  {
+//    String[] nameScore = split(leader, ",");
+//    nicknames.add(nameScore[0]);
+//    scoresTemp.append(int(nameScore[1]));
+//    scores.append(int(nameScore[1]));
+//    i++;
+//  }
+  
+//  for (int j = 0; j < i; j++)
+//  {
+//    for (int k = 0; k < i; k++)
+//    {
+//      if (scores.get(j) == scoresTemp.get(k))
+//      {
+//        nicknameOrder.add(nicknames.get(k));
+//      }
+//    }
+//  }
+//}
